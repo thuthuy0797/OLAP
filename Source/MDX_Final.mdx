@@ -1,0 +1,100 @@
+--Truy vấn Roll-Up:
+--1. Hiển thị tổng số lượng đánh giá của các quyển sách theo từng ngôn ngữ
+SELECT [Measures].[Rating Dist Total] ON 0,
+NON EMPTY [DIM BOOK].[Name] * [DIM LANGUAGE].[Language].MEMBERS ON 1
+FROM [SSIS];
+
+--Truy vấn Drill-Down:
+--2. Cho biết quyển sách có số lượng đánh giá cao nhất:
+ SELECT [Measures].[Rating Dist Total] ON 0,
+TOPCOUNT ([DIM BOOK].[Name].CHILDREN, 1, [Measures].[Rating Dist Total]) ON 1
+FROM [SSIS];
+
+--Truy vấn Slice and Dice:
+--3. Cho biết quyển sách có số lượng rating tổng > 10000 vào năm 1990
+ SELECT [Measures].[Rating Dist Total] ON 0,
+NON EMPTY [DIM BOOK].[Name].CHILDREN
+HAVING [Measures].[Rating Dist Total] > 10000 ON 1
+FROM [SSIS]
+WHERE [DIM PUBLISHDATE].[Publish Year].&[1990];
+
+
+--4. Cho biết tác giả có số lượng rating trong năm 2000 lớn hơn 5000
+ SELECT [Measures].[Rating Dist Total] ON 0,
+FILTER ([DIM AUTHOR].[Authors].CHILDREN, [Measures].[Rating Dist Total] > 5000) ON 1
+FROM [SSIS]
+WHERE [DIM PUBLISHDATE].[Publish Year].&[2000];
+
+--5. Hiển thị những quyển sách có cùng nhà xuất bản ra chúng trong năm 2008
+ SELECT [Measures].[Rating Dist Total] ON 0,
+NON EMPTY [DIM PUBLISHER].[ID_PUBLISHER] * [DIM BOOK].[NAME].MEMBERS ON 1
+FROM [SSIS]
+WHERE [DIM PUBLISHDATE].[Publish Year].&[2008];
+
+--Truy vấn Pivot:
+--6. Cho biết quyển sách có bao nhiêu trang trong các quyển sách có lượt rating 
+	-- 5 > 100 trong năm 2000: 
+ SELECT [Measures].[Pages Number]ON 0,
+FILTER ([DIM BOOK].[Name].CHILDREN, [Measures].[Rating Dist5] > 100) ON 1
+FROM [SSIS]
+WHERE [DIM PUBLISHDATE].[Publish Year].&[2000];
+
+--7. Hiển thị tổng số lượng rating 5 sao của các quyển sách có ngôn ngữ là 
+	-- tiếng Pháp (fre) theo thứ tự giảm dần:
+SELECT [Measures].[Rating Dist5] ON 0,
+NON EMPTY ORDER ([DIM BOOK].[Name].CHILDREN, [Measures].[Rating Dist5], DESC) ON 1
+FROM [SSIS]
+WHERE [DIM LANGUAGE].[Language].&[fre];
+
+--8. Hiển thị tổng số lượng rating 3 sao của các quyển sách có ngôn ngữ là 
+	-- tiếng Đức (gre) theo thứ tự tăng dần:
+SELECT [Measures].[Rating Dist5] ON 0,
+NON EMPTY ORDER ([DIM BOOK].[Name].CHILDREN, [Measures].[Rating Dist5], ASC) ON 1
+FROM [SSIS]
+WHERE [DIM LANGUAGE].[Language].&[ger];
+ 
+--9. Hiển thị tổng số lượng đánh giá, tổng số lượt review dạng văn bản của 
+	-- từng nhà văn theo từng ngôn ngữ
+ SELECT {[Measures].[Rating Dist Total],[Measures].[Counts Of Review]} ON 0,
+NON EMPTY [DIM AUTHOR].[Authors].CHILDREN * [DIM LANGUAGE].[Language].MEMBERS ON 1
+FROM [SSIS];
+
+--Slice and Dice kết hợp Drill-Down:
+--10.Hiển thị top 10 cuốn sách có lượng đánh giá cao nhất, trong đó ở mỗi cuốn 
+	-- sách, chỉ lấy thông tin cuốn sách với đánh giá cao nhất:
+ SELECT [Measures].[Rating Dist Total] ON 0,
+TOPCOUNT ([DIM BOOK].[Name].CHILDREN, 10, [Measures].[Rating Dist Total]) ON 1
+FROM [SSIS];
+
+--11. Cho biết top 5 quyển sách có lượng rating 5 sao cao nhất, trong các công 
+	-- việc cố tổng rating > 10000:
+ SELECT [Measures].[Rating Dist5] ON 0,
+TOPCOUNT ([DIM BOOK].[Name].CHILDREN, 5, [Measures].[Rating Dist5]) ON 1
+FROM 
+(
+	SELECT [Measures].[Rating Dist5] ON 0,
+FILTER ([DIM AUTHOR].[Authors].CHILDREN, [Measures].[Rating Dist Total] > 10000) ON 1
+	FROM [SSIS]
+);
+
+--12. Hiển thị các lượt rating lần lượt 5 sao, 4 sao,...,1 sao của những quyển 
+	-- sách của nhà văn Adam Brate:
+
+ SELECT {[Measures].[Rating Dist5],[Measures].[Rating Dist4],[Measures].[Rating Dist3],[Measures].[Rating Dist2],[Measures].[Rating Dist1]} ON 0,
+NON EMPTY [DIM BOOK].[Name].CHILDREN ON 1
+FROM [SSIS]
+WHERE [DIM AUTHOR].[Authors].&[Adam Brate];
+
+
+--14. Hiển thị top 1 quyển sách trong danh sách số lượng trang sách giảm dần 
+	-- của nhà văn Agatha Christie
+SELECT [Measures].[Pages Number] ON 0,
+TOPCOUNT ([DIM BOOK].[Name].CHILDREN, 1, [Measures].[Rating Dist5]) ON 1
+FROM 
+(
+	SELECT [Measures].[Pages Number] ON 0,
+	ORDER ([DIM BOOK].[Name].CHILDREN, [Measures].[Pages Number], DESC) ON 1
+	FROM [SSIS]
+	WHERE [DIM AUTHOR].[Authors].&[Agatha Christie]
+)
+WHERE [DIM AUTHOR].[Authors].&[Agatha Christie];

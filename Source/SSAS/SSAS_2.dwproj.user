@@ -1,0 +1,29 @@
+<AnalysisServicesUserConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <Configurations>
+    <Configuration>
+      <Name>Development</Name>
+      <Options>
+        <UserIDs>
+          <ConfigurationSetting>
+            <Id>SSIS</Id>
+            <Name>SSIS</Name>
+            <Value xsi:type="xsd:string">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAA4kl3AjLP0S3m8f1RCPxVAAAAAAKAAAAUwBTAEkAUwAAABBmAAAAAQAAIAAAAMuJLwSj9MpuCdw+LVW29RARqRX6NZKUWm0e6DksPzofAAAAAA6AAAAAAgAAIAAAAN2O1Sx8jtMu5XSByLChSm0U9Mndm2pUh2p4zj+eB7PPEAAAAEFNsARHKBUBO2qCtY6SvkxAAAAA8lbJDNSflNinH0K0H4atg/C88hRBVmiL4PPFmy+zJH1C9VZdDKfuxTnmQr1wck5m7jCNZDKV34Msamuv6DDmiA==</Value>
+          </ConfigurationSetting>
+        </UserIDs>
+        <UserPasswords>
+          <ConfigurationSetting>
+            <Id>SSIS</Id>
+            <Name>SSIS</Name>
+            <Value xsi:type="xsd:string">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAA4kl3AjLP0S3m8f1RCPxVAAAAAAKAAAAUwBTAEkAUwAAABBmAAAAAQAAIAAAAENirg1E8XOuywdAJ/mP/TUVsaZ8K5CJgbn1oswDN3ppAAAAAA6AAAAAAgAAIAAAAI2twbi9Sbw6Fa/jawdPf87GhgNocUhu1RXB9E7yDrylIAAAAJVHfVNLDAT5IdEvmYHqXv43+z5RQ3dbShaG8AVC5GwxQAAAAIqAfpU5bdR1iAdFzTn5uQwGHAG1cI08S/uDG8bEycVwtG2jg5NiSKuMnD1+KDpxE3R4P1VeQjone8mTe9W+7vE=</Value>
+          </ConfigurationSetting>
+        </UserPasswords>
+        <TargetServer>localhost</TargetServer>
+        <TargetDatabase>SSAS_2</TargetDatabase>
+        <StartObject>
+          <ObjectId></ObjectId>
+          <ObjectType>Current</ObjectType>
+        </StartObject>
+      </Options>
+    </Configuration>
+  </Configurations>
+</AnalysisServicesUserConfiguration>
