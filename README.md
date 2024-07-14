@@ -14,10 +14,7 @@ Giảng viên: Ths. Nguyễn Thị Kim Phụng - phungntk@uit.edu.vn
 
 # Thành viên
 
-| MSSV | Họ và tên | Gmail | Github |
-|--------------|-------|------|-------|
-| 20520837 | Nguyễn Cẩm Tú | 20520837@gm.uit.edu.vn | https://github.com/camtu837 
-| 20520797 | Nguyễn Thị Thu Thủy | 20520797@gm.uit.edu.vn |  https://github.com/thuthuy0797
-
-
-# Bài báo cáo
+| MSSV | Họ và tên | Github |
+|--------------|-------|-------|
+| 20520837 | Nguyễn Cẩm Tú | https://github.com/camtu837 
+| 20520797 | Nguyễn Thị Thu Thủy |  https://github.com/thuthuy0797
